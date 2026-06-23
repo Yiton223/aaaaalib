@@ -5,6 +5,17 @@ local CoreGui = game:GetService("CoreGui")
 local Library = {}
 Library.__index = Library
 
+-- Цветовая палитра для удобного изменения (Красная тема)
+local Theme = {
+    MainRed = Color3.fromRGB(255, 75, 75),
+    DarkRed = Color3.fromRGB(160, 35, 35),
+    Background = Color3.fromRGB(14, 19, 30),
+    SecondaryBG = Color3.fromRGB(20, 24, 35),
+    Stroke = Color3.fromRGB(55, 45, 45), -- Слегка теплый оттенок обводки
+    Text = Color3.fromRGB(255, 255, 255),
+    TextDim = Color3.fromRGB(200, 200, 200)
+}
+
 local function MakeDraggable(topbarobject, object)
 	local Dragging = false
 	local DragInput
@@ -95,10 +106,8 @@ function Library:CreateWindow(TitleText: string)
 	local IsFullscreen = true
 
 	local Xyesos = Instance.new("ScreenGui")
-	Xyesos.Name = "XyesosLib"
-
+	Xyesos.Name = "RedLib"
 	Xyesos.Parent = CoreGui
-
 	Xyesos.ZIndexBehavior = Enum.ZIndexBehavior.Sibling
 	Xyesos.IgnoreGuiInset = true
 	Xyesos.ResetOnSpawn = false
@@ -106,7 +115,7 @@ function Library:CreateWindow(TitleText: string)
 	local FullscreenBG = Instance.new("Frame")
 	FullscreenBG.Name = "FullscreenBackground"
 	FullscreenBG.Parent = Xyesos
-	FullscreenBG.BackgroundColor3 = Color3.fromRGB(14, 19, 30)
+	FullscreenBG.BackgroundColor3 = Theme.Background
 	FullscreenBG.BorderSizePixel = 0
 	FullscreenBG.Size = UDim2.new(1, 0, 1, 0)
 	FullscreenBG.Visible = true
@@ -117,7 +126,7 @@ function Library:CreateWindow(TitleText: string)
 	Watermark.BackgroundTransparency = 1.000
 	Watermark.Size = UDim2.new(1, 0, 1, 0)
 	Watermark.Image = "rbxassetid://5079174090"
-	Watermark.ImageTransparency = 0.950
+	Watermark.ImageTransparency = 0.960 -- Еще чуть прозрачнее для красоты
 
 	local FullTitleLabel = Instance.new("TextLabel")
 	FullTitleLabel.Name = "Title"
@@ -127,14 +136,14 @@ function Library:CreateWindow(TitleText: string)
 	FullTitleLabel.Size = UDim2.new(0.7, 0, 0.10, 0)
 	FullTitleLabel.Font = Enum.Font.FredokaOne
 	FullTitleLabel.Text = TitleText
-	FullTitleLabel.TextColor3 = Color3.fromRGB(255, 255, 255)
+	FullTitleLabel.TextColor3 = Theme.Text
 	FullTitleLabel.TextScaled = true
 	FullTitleLabel.TextWrapped = true
 
 	local FullTitleGradient = Instance.new("UIGradient")
 	FullTitleGradient.Color = ColorSequence.new({
-		ColorSequenceKeypoint.new(0, Color3.fromRGB(30, 255, 180)),
-		ColorSequenceKeypoint.new(1, Color3.fromRGB(0, 160, 140))
+		ColorSequenceKeypoint.new(0, Theme.MainRed),
+		ColorSequenceKeypoint.new(1, Theme.DarkRed)
 	})
 	FullTitleGradient.Rotation = 90
 	FullTitleGradient.Parent = FullTitleLabel
@@ -154,7 +163,7 @@ function Library:CreateWindow(TitleText: string)
 	local MainFrame = Instance.new("Frame")
 	MainFrame.Name = "MainFrame"
 	MainFrame.Parent = Xyesos
-	MainFrame.BackgroundColor3 = Color3.fromRGB(20, 24, 35)
+	MainFrame.BackgroundColor3 = Theme.SecondaryBG
 	MainFrame.Position = UDim2.new(0.5, -150, 0.5, -200)
 	MainFrame.Size = UDim2.new(0, 300, 0, 400)
 	MainFrame.BorderSizePixel = 0
@@ -165,14 +174,14 @@ function Library:CreateWindow(TitleText: string)
 	MainCorner.Parent = MainFrame
 
 	local MainStroke = Instance.new("UIStroke")
-	MainStroke.Color = Color3.fromRGB(45, 50, 65)
+	MainStroke.Color = Theme.Stroke
 	MainStroke.Thickness = 2
 	MainStroke.Parent = MainFrame
 
 	local TitleBar = Instance.new("Frame")
 	TitleBar.Name = "TitleBar"
 	TitleBar.Parent = MainFrame
-	TitleBar.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
+	TitleBar.BackgroundColor3 = Theme.Text
 	TitleBar.BackgroundTransparency = 1.000
 	TitleBar.Size = UDim2.new(1, 0, 0, 40)
 
@@ -184,14 +193,14 @@ function Library:CreateWindow(TitleText: string)
 	MiniTitleLabel.Size = UDim2.new(1, -30, 1, 0)
 	MiniTitleLabel.Font = Enum.Font.FredokaOne
 	MiniTitleLabel.Text = TitleText
-	MiniTitleLabel.TextColor3 = Color3.fromRGB(255, 255, 255)
+	MiniTitleLabel.TextColor3 = Theme.Text
 	MiniTitleLabel.TextSize = 22
 	MiniTitleLabel.TextXAlignment = Enum.TextXAlignment.Left
 
 	local MiniTitleGradient = Instance.new("UIGradient")
 	MiniTitleGradient.Color = ColorSequence.new({
-		ColorSequenceKeypoint.new(0, Color3.fromRGB(30, 255, 180)),
-		ColorSequenceKeypoint.new(1, Color3.fromRGB(0, 160, 140))
+		ColorSequenceKeypoint.new(0, Theme.MainRed),
+		ColorSequenceKeypoint.new(1, Theme.DarkRed)
 	})
 	MiniTitleGradient.Rotation = 0
 	MiniTitleGradient.Parent = MiniTitleLabel
@@ -202,13 +211,13 @@ function Library:CreateWindow(TitleText: string)
 	MiniContainer.Name = "Container"
 	MiniContainer.Parent = MainFrame
 	MiniContainer.Active = true
-	MiniContainer.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
+	MiniContainer.BackgroundColor3 = Theme.Text
 	MiniContainer.BackgroundTransparency = 1.000
 	MiniContainer.BorderSizePixel = 0
 	MiniContainer.Position = UDim2.new(0, 0, 0, 50)
 	MiniContainer.Size = UDim2.new(1, 0, 1, -60)
 	MiniContainer.ScrollBarThickness = 2
-	MiniContainer.ScrollBarImageColor3 = Color3.fromRGB(30, 255, 180)
+	MiniContainer.ScrollBarImageColor3 = Theme.MainRed
 
 	local MiniListLayout = Instance.new("UIListLayout")
 	MiniListLayout.Parent = MiniContainer
@@ -227,7 +236,7 @@ function Library:CreateWindow(TitleText: string)
 	local FloatToggleBtn = Instance.new("ImageButton")
 	FloatToggleBtn.Name = "FloatingToggle"
 	FloatToggleBtn.Parent = Xyesos
-	FloatToggleBtn.BackgroundColor3 = Color3.fromRGB(30, 255, 180)
+	FloatToggleBtn.BackgroundColor3 = Theme.MainRed
 	FloatToggleBtn.Position = UDim2.new(0.9, 0, 0.9, -60)
 	FloatToggleBtn.Size = UDim2.new(0, 50, 0, 50)
 	FloatToggleBtn.ZIndex = 10
@@ -235,12 +244,12 @@ function Library:CreateWindow(TitleText: string)
 	FloatToggleBtn.Image = "rbxassetid://5079174090"
 
 	local FloatCorner = Instance.new("UICorner")
-	FloatCorner.CornerRadius = UDim.new(1, 0) -- Kreisform
+	FloatCorner.CornerRadius = UDim.new(1, 0)
 	FloatCorner.Parent = FloatToggleBtn
 
 	local FloatStroke = Instance.new("UIStroke")
 	FloatStroke.Thickness = 2
-	FloatStroke.Color = Color3.fromRGB(255, 255, 255)
+	FloatStroke.Color = Theme.Text
 	FloatStroke.Parent = FloatToggleBtn
 
 	local FloatShadow = Instance.new("ImageLabel")
@@ -280,20 +289,19 @@ function Library:CreateWindow(TitleText: string)
 		local FullLine = Instance.new("Frame")
 		FullLine.Name = "Line"
 		FullLine.Parent = FullSepFrame
-		FullLine.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
+		FullLine.BackgroundColor3 = Theme.Text
 		FullLine.BorderSizePixel = 0
 		FullLine.Size = UDim2.new(1, 0, 0, 2)
 		FullLine.Position = UDim2.new(0, 0, 0.5, 0)
 
 		local FullGradient = Instance.new("UIGradient")
 		FullGradient.Color = ColorSequence.new({
-			ColorSequenceKeypoint.new(0.00, Color3.fromRGB(14, 19, 30)),
-			ColorSequenceKeypoint.new(0.50, Color3.fromRGB(30, 255, 180)),
-			ColorSequenceKeypoint.new(1.00, Color3.fromRGB(14, 19, 30))
+			ColorSequenceKeypoint.new(0.00, Theme.Background),
+			ColorSequenceKeypoint.new(0.50, Theme.MainRed),
+			ColorSequenceKeypoint.new(1.00, Theme.Background)
 		})
 		FullGradient.Parent = FullLine
 
-		-- Minimized Separator
 		local MiniSpacer = Instance.new("Frame")
 		MiniSpacer.Name = "SepSpacer"
 		MiniSpacer.BackgroundTransparency = 1
@@ -303,7 +311,7 @@ function Library:CreateWindow(TitleText: string)
 		local MiniLine = Instance.new("Frame")
 		MiniLine.Name = "Seperator"
 		MiniLine.Parent = MiniSpacer
-		MiniLine.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
+		MiniLine.BackgroundColor3 = Theme.Text
 		MiniLine.BackgroundTransparency = 0
 		MiniLine.BorderSizePixel = 0
 		MiniLine.Size = UDim2.new(1, 0, 0, 2)
@@ -311,9 +319,9 @@ function Library:CreateWindow(TitleText: string)
 
 		local MiniGradient = Instance.new("UIGradient")
 		MiniGradient.Color = ColorSequence.new({
-			ColorSequenceKeypoint.new(0.00, Color3.fromRGB(20, 24, 35)),
-			ColorSequenceKeypoint.new(0.50, Color3.fromRGB(30, 255, 180)),
-			ColorSequenceKeypoint.new(1.00, Color3.fromRGB(20, 24, 35))
+			ColorSequenceKeypoint.new(0.00, Theme.SecondaryBG),
+			ColorSequenceKeypoint.new(0.50, Theme.MainRed),
+			ColorSequenceKeypoint.new(1.00, Theme.SecondaryBG)
 		})
 		MiniGradient.Parent = MiniLine
 
@@ -327,7 +335,7 @@ function Library:CreateWindow(TitleText: string)
 		local FullStatFrame = Instance.new("Frame")
 		FullStatFrame.Name = "Stat_" .. StatName
 		FullStatFrame.Parent = FullContainer
-		FullStatFrame.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
+		FullStatFrame.BackgroundColor3 = Theme.Text
 		FullStatFrame.BackgroundTransparency = 0.95
 		FullStatFrame.BorderSizePixel = 0
 		FullStatFrame.Size = UDim2.new(1, 0, 0.06, 0)
@@ -344,7 +352,7 @@ function Library:CreateWindow(TitleText: string)
 		FullStatLabel.Size = UDim2.new(0.48, 0, 1, 0)
 		FullStatLabel.Font = Enum.Font.GothamBold
 		FullStatLabel.Text = StatName
-		FullStatLabel.TextColor3 = Color3.fromRGB(200, 200, 200)
+		FullStatLabel.TextColor3 = Theme.TextDim
 		FullStatLabel.TextScaled = true
 		FullStatLabel.TextWrapped = true
 		FullStatLabel.TextXAlignment = Enum.TextXAlignment.Left
@@ -356,23 +364,23 @@ function Library:CreateWindow(TitleText: string)
 		FullValueLabel.Position = UDim2.new(0.5, 0, 0, 0)
 		FullValueLabel.Size = UDim2.new(0.48, 0, 1, 0)
 		FullValueLabel.Font = Enum.Font.GothamBold
-		FullValueLabel.Text = InitialValue
-		FullValueLabel.TextColor3 = Color3.fromRGB(255, 255, 255)
+		FullValueLabel.Text = tostring(InitialValue)
+		FullValueLabel.TextColor3 = Theme.Text
 		FullValueLabel.TextScaled = true
 		FullValueLabel.TextWrapped = true
 		FullValueLabel.TextXAlignment = Enum.TextXAlignment.Right
 
 		local FullValueGradient = Instance.new("UIGradient")
 		FullValueGradient.Color = ColorSequence.new({
-			ColorSequenceKeypoint.new(0, Color3.fromRGB(30, 255, 180)),
-			ColorSequenceKeypoint.new(1, Color3.fromRGB(0, 160, 140))
+			ColorSequenceKeypoint.new(0, Theme.MainRed),
+			ColorSequenceKeypoint.new(1, Theme.DarkRed)
 		})
 		FullValueGradient.Parent = FullValueLabel
 
 		local MiniStatFrame = Instance.new("Frame")
 		MiniStatFrame.Name = "StatFrame_" .. StatName
 		MiniStatFrame.Parent = MiniContainer
-		MiniStatFrame.BackgroundColor3 = Color3.fromRGB(30, 35, 45)
+		MiniStatFrame.BackgroundColor3 = Color3.fromRGB(45, 35, 35) -- Чуть краснее фон
 		MiniStatFrame.BackgroundTransparency = 0.5
 		MiniStatFrame.BorderSizePixel = 0
 		MiniStatFrame.Size = UDim2.new(1, 0, 0, 35)
@@ -389,7 +397,7 @@ function Library:CreateWindow(TitleText: string)
 		MiniNameLabel.Size = UDim2.new(0.5, -10, 1, 0)
 		MiniNameLabel.Font = Enum.Font.GothamMedium
 		MiniNameLabel.Text = StatName
-		MiniNameLabel.TextColor3 = Color3.fromRGB(200, 200, 200)
+		MiniNameLabel.TextColor3 = Theme.TextDim
 		MiniNameLabel.TextSize = 14
 		MiniNameLabel.TextXAlignment = Enum.TextXAlignment.Left
 
@@ -400,40 +408,38 @@ function Library:CreateWindow(TitleText: string)
 		MiniValueLabel.Position = UDim2.new(0.5, 0, 0, 0)
 		MiniValueLabel.Size = UDim2.new(0.5, -10, 1, 0)
 		MiniValueLabel.Font = Enum.Font.GothamBold
-		MiniValueLabel.Text = InitialValue
-		MiniValueLabel.TextColor3 = Color3.fromRGB(255, 255, 255)
+		MiniValueLabel.Text = tostring(InitialValue)
+		MiniValueLabel.TextColor3 = Theme.Text
 		MiniValueLabel.TextSize = 14
 		MiniValueLabel.TextXAlignment = Enum.TextXAlignment.Right
 
 		if shouldFormat then
-			FullValueLabel.Text = FormatValue(InitialValue)
-			MiniValueLabel.Text = FormatValue(InitialValue)
+			local formatted = FormatValue(InitialValue)
+			FullValueLabel.Text = formatted
+			MiniValueLabel.Text = formatted
 		end
 
 		function StatObj:Update(NewValue)
-		    local valueStr = tostring(NewValue)
-		
-		    function StatObj:Update(NewValue)
-			    local valueStr = tostring(NewValue)
-			    FullValueLabel.Text = valueStr
-			    MiniValueLabel.Text = valueStr
-			end
+			local finalValue = shouldFormat and FormatValue(NewValue) or tostring(NewValue)
+			FullValueLabel.Text = finalValue
+			MiniValueLabel.Text = finalValue
 		end
 
 		table.insert(StatsList, StatObj)
 		return StatObj
 	end
+
 	function WindowObj:AddButton(Text: string, Callback)
 	    local ButtonObj = {}
 		
 	    local MiniBtn = Instance.new("TextButton")
 	    MiniBtn.Name = "Button_" .. Text
 	    MiniBtn.Parent = MiniContainer
-	    MiniBtn.BackgroundColor3 = Color3.fromRGB(35, 40, 55)
+	    MiniBtn.BackgroundColor3 = Color3.fromRGB(40, 35, 35)
 	    MiniBtn.Size = UDim2.new(1, 0, 0, 35)
 	    MiniBtn.Font = Enum.Font.GothamBold
 	    MiniBtn.Text = Text
-	    MiniBtn.TextColor3 = Color3.fromRGB(255, 255, 255)
+	    MiniBtn.TextColor3 = Theme.Text
 	    MiniBtn.TextSize = 14
 		MiniBtn.AutoButtonColor = false
 		
@@ -442,10 +448,10 @@ function Library:CreateWindow(TitleText: string)
 	    Corner.Parent = MiniBtn
 		
 	    MiniBtn.MouseButton1Click:Connect(function()
-	        local tween = TweenService:Create(MiniBtn, TweenInfo.new(0.1), {BackgroundColor3 = Color3.fromRGB(30, 255, 180)})
+	        local tween = TweenService:Create(MiniBtn, TweenInfo.new(0.1), {BackgroundColor3 = Theme.MainRed})
 	        tween:Play()
 	        tween.Completed:Wait()
-	        TweenService:Create(MiniBtn, TweenInfo.new(0.1), {BackgroundColor3 = Color3.fromRGB(35, 40, 55)}):Play()
+	        TweenService:Create(MiniBtn, TweenInfo.new(0.1), {BackgroundColor3 = Color3.fromRGB(40, 35, 35)}):Play()
 		
 	        Callback()
 	    end)
@@ -454,4 +460,5 @@ function Library:CreateWindow(TitleText: string)
 	end
 	return WindowObj
 end
+
 return Library
